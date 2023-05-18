@@ -1,4 +1,5 @@
 ﻿using Exiled.API.Features;
+using Exiled.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,15 +16,20 @@ namespace DanasNET_Utilities
         public override string Name => "DanasNET-Utilities";
 
         public DNUtilities Instance = new DNUtilities();
-
+        public EventHandlers handler;
         public override void OnEnabled()
         {
+            handler = new EventHandlers(Instance);
+
+            Exiled.Events.Handlers.Server.RoundStarted += handler.OnPlayerSpawn;
             base.OnEnabled();
         }
 
         public override void OnDisabled()
         {
+            Exiled.Events.Handlers.Server.RoundStarted -= handler.OnPlayerSpawn;
 
+            handler = null;
             base.OnDisabled();
         }
     }

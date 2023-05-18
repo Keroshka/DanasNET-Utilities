@@ -25,7 +25,7 @@ namespace DanasNET_Utilities
         {
             var players = Exiled.API.Features.Player.List.Where(peanut => peanut.Role.Type == PlayerRoles.RoleTypeId.Scp173).ToList();
             var position = Exiled.API.Extensions.SpawnExtensions.GetPosition(Exiled.API.Enums.SpawnLocationType.InsideNukeArmory);
-            if (position != Vector3.zero)
+            if (position != Vector3.zero && players.Count != 0)
             {
                 foreach (var player in players)
                 {
